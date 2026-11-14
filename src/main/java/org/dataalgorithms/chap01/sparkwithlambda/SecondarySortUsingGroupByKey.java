@@ -63,7 +63,7 @@ public class SecondarySortUsingGroupByKey {
         System.out.println("outputPath=" + outputPath);
 
 
-    // STEP-2: Connect to the Sark master by creating JavaSparkContext object
+    // STEP-2: Connect to the Spark master by creating JavaSparkContext object
     final JavaSparkContext ctx = SparkUtil.createJavaSparkContext();
 
     // STEP-3: Use ctx to create JavaRDD<String>
@@ -112,7 +112,7 @@ public class SecondarySortUsingGroupByKey {
 	// Pass each value in the key-value pair RDD through a map function without changing the keys; 
 	// this also retains the original RDD's partitioning.
     JavaPairRDD<String, Iterable<Tuple2<Integer, Integer>>> sorted = groups.mapValues((Iterable<Tuple2<Integer, Integer>> s) -> {
-        List<Tuple2<Integer, Integer>> newList = new ArrayList<Tuple2<Integer, Integer>>(iterableToList(s));      
+        List<Tuple2<Integer, Integer>> newList = iterableToList(s);
         Collections.sort(newList, SparkTupleComparator.INSTANCE);
         return newList;
         } 

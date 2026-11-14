@@ -120,7 +120,7 @@ public class SecondarySortUsingGroupByKey {
                                                                                                   >() {  
       @Override
       public Iterable<Tuple2<Integer, Integer>> call(Iterable<Tuple2<Integer, Integer>> s) {
-        List<Tuple2<Integer, Integer>> newList = new ArrayList<Tuple2<Integer, Integer>>(iterableToList(s));      
+        List<Tuple2<Integer, Integer>> newList = iterableToList(s);
         Collections.sort(newList, SparkTupleComparator.INSTANCE);
         return newList;
       }

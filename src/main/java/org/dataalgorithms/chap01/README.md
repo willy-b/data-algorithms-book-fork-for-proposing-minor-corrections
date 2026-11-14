@@ -67,14 +67,14 @@ echo "JAVA_HOME=$JAVA_HOME"
 #
 export BOOK_HOME=/Users/mparsian/zmp/github/data-algorithms-book
 export SPARK_HOME=/Users/mparsian/spark-1.6.1-bin-hadoop2.6
-export SPARK_MASTER=spark://localhost:7077
+export SPARK_MASTER=spark://localhost:7077 # (can also use "local" if not running a cluster)
 export SPARK_JAR=$BOOK_HOME/lib/spark-assembly-1.6.0-hadoop2.6.0.jar
 export APP_JAR=$BOOK_HOME/dist/data_algorithms_book.jar
 # define input parameters
-INPUT="file://$BOOK_HOME/time_series.txt"
+INPUT="file://$BOOK_HOME/resource/time_series.txt"
 OUTPUT="file://$BOOK_HOME/output"
 #
-prog=org.dataalgorithms.chap01.spark.SparkSecondarySortUsingCombineByKey
+prog=org.dataalgorithms.chap01.spark.SecondarySortUsingCombineByKey
 $SPARK_HOME/bin/spark-submit  --class $prog --master $SPARK_MASTER $APP_JAR $INPUT $OUTPUT
 ````
 

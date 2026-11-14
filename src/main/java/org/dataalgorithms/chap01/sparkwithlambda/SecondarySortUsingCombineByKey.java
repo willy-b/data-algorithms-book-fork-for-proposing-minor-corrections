@@ -71,7 +71,7 @@ public class SecondarySortUsingCombineByKey {
         String outputPath = args[1];
         System.out.println("outputPath=" + outputPath);
 
-        // STEP-2: Connect to the Sark master by creating JavaSparkContext object
+        // STEP-2: Connect to the Spark master by creating JavaSparkContext object
         final JavaSparkContext ctx = SparkUtil.createJavaSparkContext();
 
         // STEP-3: Use ctx to create JavaRDD<String>
@@ -132,10 +132,12 @@ public class SecondarySortUsingCombineByKey {
         // function 3: merge two combiner data structures
         Function2<SortedMap<Integer, Integer>, SortedMap<Integer, Integer>, SortedMap<Integer, Integer>> mergeCombiners
                 = (SortedMap<Integer, Integer> map1, SortedMap<Integer, Integer> map2) -> {
+                    // smaller map should be 1st argument to DataStructures.merge
+                    // (see https://github.com/mahmoudparsian/data-algorithms-book/blob/625c090e57f3551e65df9129d45eecb0c96d85fd/src/main/java/org/dataalgorithms/util/DataStructures.java#L21 )
                     if (map1.size() < map2.size()) {
                         return DataStructures.merge(map1, map2);
                     } else {
-                        return DataStructures.merge(map1, map2);
+                        return DataStructures.merge(map2, map1);
                     }
         };
 
